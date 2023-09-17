@@ -1,0 +1,48 @@
+// Объявление переменных для пинов и считанных данных 
+const int sensorPins[] = {A0, A1, A2, A3}; // Пины для датчиков изгиба 
+const int buttonPins[] = {2, 3, 4, 5}; // Пины для кнопок 
+int sensorReadings[4] = {0}; // Данные с датчиков 
+int buttonStates[4] = {0}; // Состояния кнопок 
+
+void setup() { 
+Serial.begin(9600); 
+
+// Настройка пинов для датчиков изгиба 
+for (int i = 0; i < 4; i++) { 
+pinMode(sensorPins[i], INPUT); 
+} 
+
+// Настройка пинов для кнопок 
+for (int i = 0; i < 4; i++) { 
+pinMode(buttonPins[i], INPUT_PULLUP); // Включение подтягивающих резисторов 
+} 
+} 
+
+void loop() { 
+// Считывание данных с датчиков изгиба 
+for (int i = 0; i < 4; i++) { 
+sensorReadings[i] = analogRead(sensorPins[i]); 
+} 
+
+// Считывание состояний кнопок 
+for (int i = 0; i < 4; i++) { 
+buttonStates[i] = digitalRead(buttonPins[i]); 
+} 
+
+// Обработка данных и управление игровыми объектами 
+// Добавьте свою логику управления объектами на основе считанных данных 
+
+// Вывод данных на серийный порт для отладки 
+for (int i = 0; i < 4; i++) { 
+Serial.print("Sensor "); 
+Serial.print(i); 
+Serial.print(": "); 
+Serial.print(sensorReadings[i]); 
+Serial.print(" | Button "); 
+Serial.print(i); 
+Serial.print(": "); 
+Serial.println(buttonStates[i]); 
+} 
+
+delay(100); // Задержка для стабилизации считанных данных 
+}
