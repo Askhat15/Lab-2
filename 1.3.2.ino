@@ -4,8 +4,7 @@ int percentage=0;
 #define ANALOGPIN A1 //подключение аналогового сигнального пина 
 #define RZERO 206.85
 MQ135 gasSensor = MQ135(ANALOGPIN);
-boolean noGas; //переменная для хранения значения о присутствии 
-газа
+boolean noGas; //переменная для хранения значения о присутствии газа
 int gasValue = 0; //переменная для хранения количества газа 
 void setup()
 {
