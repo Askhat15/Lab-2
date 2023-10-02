@@ -1,8 +1,7 @@
 #include <Wire.h> // Добавляем необходимые библиотеки 
 #include <LiquidCrystal_I2C.h>
 #include "DHT.h"
-#define DHTPIN A0 // к какому пину будет подключен сигнальный 
-выход датчика
+#define DHTPIN A0 // к какому пину будет подключен сигнальный выход датчика
 #define DHTTYPE DHT11 //выбор используемого датчика DHT 11 
 //#define DHTTYPE DHT22 // DHT 22 (AM2302)
 //#define DHTTYPE DHT21 // DHT 21 (AM2301) 
@@ -18,8 +17,7 @@ B00000,
 B00000, 
 B00000, 
 };
-LiquidCrystal_I2C lcd(0x27,16,2); // Задаем адрес и размерность 
-дисплея
+LiquidCrystal_I2C lcd(0x27,16,2); // Задаем адрес и размерность дисплея
 void setup() 
 {
 lcd.init(); // Инициализация lcd
@@ -32,8 +30,7 @@ void loop() {
 // Добавляем паузы в несколько секунд между измерениями 
 delay(2000);
 // Reading temperature or humidity takes about 250 milliseconds! 
-// Sensor readings may also be up to 2 seconds 'old' (its a very 
-slow sensor)
+// Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
 float h = dht.readHumidity();
 // Read temperature as Celsius 
 float t = dht.readTemperature(); 
