@@ -1,50 +1,50 @@
-int trigPin = 11;    // Trigger
-int echoPin = 12; 
-long duration, cm, inches;
-int trigPin1 = 10;    // Trigger
-int echoPin1 = 9;    // Echo
-long duration1, cm1, inches1;
-void setup() {
-  Serial.begin (9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  pinMode(trigPin1, OUTPUT);
-  pinMode(echoPin1, INPUT);
-}
-void loop() {
-  // Датчик срабатывает ВЫСОКИМ импульсом длительностью 10 или более микросекунд.
-  // Заранее подайте короткий НИЗКИЙ импульс, чтобы обеспечить чистый ВЫСОКИЙ импульс:
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(5);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  digitalWrite(trigPin1, LOW);
-  delayMicroseconds(5);
-  digitalWrite(trigPin1, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin1, LOW);
-  // Считываем сигнал с датчика: ВЫСОКИЙ импульс,
-  // продолжительность - это время (в микросекундах) с момента отправки пинга до приема его эха от объекта.
-  pinMode(echoPin, INPUT);
-  duration = pulseIn(echoPin, HIGH);
-  pinMode(echoPin1, INPUT);
-  duration1 = pulseIn(echoPin1, HIGH);
-  // Преобразуем время в расстояние
-  cm = (duration/2) / 29.1;
-  inches = (duration/2) / 74;
-  cm1 = (duration1/2) / 29.1;
-  inches1 = (duration1/2) / 74;
-  Serial.print(inches),(inches1);
-  Serial.print("in, "),("in1, ");
-  Serial.print(cm),(cm1);
-  Serial.print("cm"),("cm1");
-  Serial.println();
+const int leftTrigPin = A0; 
+const int leftEchoPin = 3; 
+const int rightTrigPin = A1; 
+const int rightEchoPin = 2; 
+const int resetButton = 4; 
+const int serveButton = 5; 
  
-  //Serial.print(inches1);
- // Serial.print("in1, ");
- // Serial.print(cm1);
- // Serial.print("cm1");
-  //Serial.println();
- // delay(250);
+long leftDistance = 0; 
+long rightDistance = 0; 
+int resetReading = 0; 
+int serveReading = 0; 
+ 
+void setup() { 
+ Serial.begin(9600); 
+ pinMode(leftTrigPin, OUTPUT); 
+ pinMode(leftEchoPin, INPUT); 
+ pinMode(rightTrigPin, OUTPUT); 
+ pinMode(rightEchoPin, INPUT); 
+ pinMode(resetButton, INPUT); 
+ pinMode(serveButton, INPUT); 
+} 
+ 
+void loop() { 
+ leftDistance = readDistance(leftTrigPin, leftEchoPin); 
+ rightDistance = readDistance(rightTrigPin, rightEchoPin); 
+ 
+ resetReading = digitalRead(resetButton); 
+ serveReading = digitalRead(serveButton); 
+ 
+ Serial.print(leftDistance); 
+ Serial.print(','); 
+ Serial.print(rightDistance); 
+ Serial.print(','); 
+ Serial.print(resetReading); 
+ Serial.print(','); 
+ Serial.println(serveReading); 
+} 
+ 
+long readDistance(int trigPin, int echoPin) { 
+ digitalWrite(trigPin, LOW); 
+ delayMicroseconds(2); 
+ digitalWrite(trigPin, HIGH); 
+ delayMicroseconds(10); 
+ digitalWrite(trigPin, LOW); 
+ 
+ long duration = pulseIn(echoPin, HIGH); 
+ long distance = (duration/2) / 29.1; 
+ 
+ return distance; 
 }
