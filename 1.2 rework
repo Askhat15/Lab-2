@@ -1,50 +1,50 @@
-const int leftTrigPin = A0; 
-const int leftEchoPin = 3; 
-const int rightTrigPin = A1; 
-const int rightEchoPin = 2; 
-const int resetButton = 4; 
-const int serveButton = 5; 
+const int leftTrigPin = A0; // присваем пин от Ультразвукового датчик расстояния№1
+const int leftEchoPin = 3;  // присваем пин от Ультразвукового датчик обьекта №1
+const int rightTrigPin = A1; // присваем пин от Ультразвукового датчика для расстояния №2
+const int rightEchoPin = 2; // присваеваем пин от Ультразвукового датчик для обьекта №2
+const int resetButton = 4; // присваеваем пин от кнопки которая будет отвечать за обнуление данных
+const int serveButton = 5; // присваеваем пин от кнопки которая будет отвечать за  данных
  
-long leftDistance = 0; 
-long rightDistance = 0; 
-int resetReading = 0; 
-int serveReading = 0; 
+long leftDistance = 0; // вводим расстроение левого датчика
+long rightDistance = 0; // вводим расстояние правого датчика
+int resetReading = 0; // ввод кнопки перезагрузки в систему
+int serveReading = 0; // ввод кнопки подачи в систему
  
 void setup() { 
  Serial.begin(9600); 
- pinMode(leftTrigPin, OUTPUT); 
- pinMode(leftEchoPin, INPUT); 
- pinMode(rightTrigPin, OUTPUT); 
- pinMode(rightEchoPin, INPUT); 
- pinMode(resetButton, INPUT); 
- pinMode(serveButton, INPUT); 
+ pinMode(leftTrigPin, OUTPUT); // присваемваем пины на вход и выход
+ pinMode(leftEchoPin, INPUT); // присваемваем пины на вход и выход
+ pinMode(rightTrigPin, OUTPUT); // присваемваем пины на вход и выход
+ pinMode(rightEchoPin, INPUT); // присваемваем пины на вход и выход
+ pinMode(resetButton, INPUT); // присваемваем пины на вход и выход
+ pinMode(serveButton, INPUT); // присваемваем пины на вход и выход
 } 
  
 void loop() { 
- leftDistance = readDistance(leftTrigPin, leftEchoPin); 
- rightDistance = readDistance(rightTrigPin, rightEchoPin); 
+ leftDistance = readDistance(leftTrigPin, leftEchoPin); //  присвоение новых переменных
+ rightDistance = readDistance(rightTrigPin, rightEchoPin); //  присвоение новых переменных
  
- resetReading = digitalRead(resetButton); 
- serveReading = digitalRead(serveButton); 
+ resetReading = digitalRead(resetButton); //  присвоение новых переменных
+ serveReading = digitalRead(serveButton); //  присвоение новых переменных
  
- Serial.print(leftDistance); 
- Serial.print(','); 
- Serial.print(rightDistance); 
- Serial.print(','); 
- Serial.print(resetReading); 
- Serial.print(','); 
- Serial.println(serveReading); 
+ Serial.print(leftDistance); // вывод результатов
+ Serial.print(','); // вывод результатов
+ Serial.print(rightDistance); // вывод результатов
+ Serial.print(','); // вывод результатов
+ Serial.print(resetReading); // вывод результатов
+ Serial.print(','); // вывод результатов
+ Serial.println(serveReading); // вывод результатов
 } 
  
 long readDistance(int trigPin, int echoPin) { 
- digitalWrite(trigPin, LOW); 
- delayMicroseconds(2); 
- digitalWrite(trigPin, HIGH); 
- delayMicroseconds(10); 
- digitalWrite(trigPin, LOW); 
+ digitalWrite(trigPin, LOW); // установление задержки для вывода данных
+ delayMicroseconds(2); // установление задержки для вывода данных
+ digitalWrite(trigPin, HIGH); // установление задержки для вывода данных
+ delayMicroseconds(10); // установление задержки для вывода данных
+ digitalWrite(trigPin, LOW); // установление задержки для вывода данных
  
- long duration = pulseIn(echoPin, HIGH); 
- long distance = (duration/2) / 29.1; 
+ long duration = pulseIn(echoPin, HIGH); // вывод переменной дистанции
+ long distance = (duration/2) / 29.1; // вывод рассчет дистанции и вывод
  
- return distance; 
+ return distance; // вывод дистанции
 }
